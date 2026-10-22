@@ -18,4 +18,26 @@ function validarPerfil() {
         mensaje.textContent = "Acceso denegado"; // escribir acceso denegado dentro del HTML
         return;
     }
+
+    const fechaNacimiento = new Date(fechaTexto); // convertimos el test que pongamos de fecha en un objeto Date
+    const hoy = new Date(); //fecha y hora de hoy mismo
+
+    // la fecha tiene que ser anterior a hoy
+    if (fechaNacimiento >= hoy) { //podemos comoarar los objetos Date porque dentro son numeros
+        mensaje.textContent = "Acceso denegado"; //no tendría sentido nacer en una fecha futura asique lanzamks un mensaje de error
+        return; //para que la funcion no siga 
+    }
+
+    // calculamos la edad
+    // getFullYear() devuelve el año con 4 cifra
+    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();// restamos año actual con año de nacimiento
+
+    // getMonth() devuelve el mes de 0 a 11 (enero = 0, diciembre = 11)
+    const mesDiferencia = hoy.getMonth() - fechaNacimiento.getMonth();// diferencia de meses entre hoy y el mes de nacimiento
+
+    // comprobamos si todavia no ha cumplido años este año.
+    if (mesDiferencia < 0 || (mesDiferencia === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+        //si aun no ha cumplido años le quitamos 1 a la edad
+        edad--;
+    }
 }
