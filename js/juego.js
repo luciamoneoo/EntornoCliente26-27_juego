@@ -44,4 +44,27 @@ function validarPerfil() {
         //si aun no ha cumplido años le quitamos 1 a la edad
         edad--;
     }
+    
+}
+// funcion que esconde el perfil y muestra el panel del jugador
+function mostrarPanel(nombre, edad) {
+    const panel = document.getElementById("panel");
+
+    // METODOS DE STRING: primera letra en mayuscula y el resto en minuscula
+    // charAt(0) coge la primera letra, slice(1) coge desde la segunda hasta el final
+    const nombreFormateado = nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
+
+    document.getElementById("tituloPanel").textContent = "Jugador: " + nombreFormateado;
+    document.getElementById("datoEdad").textContent = "Edad: " + edad + " años";
+
+    // CAMBIO DE ESTILOS segun la edad: fondo azul si es menor de 18, verde si no
+    if (edad < 18) {
+        panel.style.backgroundColor = "lightblue";
+    } else {
+        panel.style.backgroundColor = "lightgreen";
+    }
+
+    // escondemos el perfil y mostramos el panel cambiando sus clases
+    document.getElementById("perfil").classList.add("oculto");
+    panel.classList.remove("oculto");
 }
