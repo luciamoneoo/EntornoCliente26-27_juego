@@ -22,11 +22,15 @@ function validarPerfil() {
     const fechaNacimiento = new Date(fechaTexto); // convertimos el test que pongamos de fecha en un objeto Date
     const hoy = new Date(); //fecha y hora de hoy mismo
 
-    // la fecha tiene que ser anterior a hoy
-    if (fechaNacimiento >= hoy) { //podemos comoarar los objetos Date porque dentro son numeros
-        mensaje.textContent = "Acceso denegado"; //no tendría sentido nacer en una fecha futura asique lanzamks un mensaje de error
-        return; //para que la funcion no siga 
+    // si la edad es menor que la minima, no puede entrar
+    if (edad < EDAD_MINIMA) {
+        mensaje.textContent = "Acceso denegado";
+        return;
     }
+
+    // si ha llegado hasta aqui, todo esta bien: mostramos el panel
+    mensaje.textContent = "";// borramos cualquier mensaje anterior
+    mostrarPanel(nombre, edad);// llamamos a la funcion que vamos a crear abajo
 
     // calculamos la edad
     // getFullYear() devuelve el año con 4 cifra
