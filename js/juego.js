@@ -10,3 +10,11 @@ let cofres = 0;                 //cofres ha abierto
 //ahora creamos un array con lo que serán las misiones y las que se completemj
 const misiones = ["Llegar a 20 puntos", "Atacar 3 veces", "Abrir un cofre"];
 let misionesCompletadas = [];
+
+//página(mostrala) y los clicks
+window.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("btnEntrar").addEventListener("click", validarPerfil);
+    document.getElementById("btnAtacar").addEventListener("click", atacar);
+    document.getElementById("btnCofre").addEventListener("click", abrirCofre);
+    document.getElementById("btnMisiones").addEventListener("click", abrirVentana);
+    });
