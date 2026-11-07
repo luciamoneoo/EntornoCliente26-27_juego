@@ -17,4 +17,10 @@ window.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btnAtacar").addEventListener("click", atacar);
     document.getElementById("btnCofre").addEventListener("click", abrirCofre);
     document.getElementById("btnMisiones").addEventListener("click", abrirVentana);
+
+    //cookie:
+    const ultimo = leerCookie("jugador");
+    if (ultimo !== "") {
+        document.getElementById("ultimoJugador").textContent = "Último jugador: " + ultimo;
+    }
     });
