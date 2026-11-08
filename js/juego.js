@@ -147,3 +147,26 @@ function sumarPuntos(cantidad) {
         document.getElementById("mensajeFinal").textContent = "";
     }
 }
+
+//creamos otros arrays para lo que serán las misiones
+function comprobarMisiones() {
+    if (puntos >= 20) {
+        completarMision(misiones[0]);
+    }
+    if (ataques >= 3) {
+        completarMision(misiones[1]);
+    }
+    if (cofres >= 1) {
+        completarMision(misiones[2]);
+    }
+    document.getElementById("misionesHechas").textContent =
+        "Misiones completadas: " + misionesCompletadas.length + " de " + misiones.length;
+}
+
+// push() -> añade al array, includes() -> comprueba si ya esta (para no repetir)
+function completarMision(mision) {
+    if (!misionesCompletadas.includes(mision)) {
+        misionesCompletadas.push(mision);
+    }
+}
+
