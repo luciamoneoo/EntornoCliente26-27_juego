@@ -79,16 +79,30 @@ function calcularEdad(fechaNacimiento) {
 function mostrarPanel(nombre, edad) {
     const panel = document.getElementById("panel");
 
-    // METODOS DE STRING: primera letra en mayuscula y el resto en minuscula
+    //primera letra en mayuscula y el resto en minuscula
     nombreJugador = nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
 
     document.getElementById("tituloPanel").textContent = "Jugador: " + nombreJugador;
     document.getElementById("datoEdad").textContent = "Edad: " + edad + " años";
 
-    // CAMBIO DE ESTILOS segun la edad: azul si es menor de 18, verde si no
+    //azul si es menor de 18, verde si no
     if (edad < 18) {
         panel.style.backgroundColor = "lightblue";
     } else {
         panel.style.backgroundColor = "lightgreen";
     }
+
+    //sesionstorage -> recuperamos los puntos de la partida (si no hay nada, Number(null) es 0)
+    puntos = Number(sessionStorage.getItem("puntos"));
+    document.getElementById("puntos").textContent = puntos;
+
+    //localstorage -> recuperamos el record
+    document.getElementById("record").textContent = Number(localStorage.getItem("record"));
+
+    //cookie -> guardamos el nombre del ultimo jugador durante 7 dias (604800 segundos)
+    document.cookie = "jugador=" + encodeURIComponent(nombreJugador) + "; max-age=604800";
+
+    //escondemos el perfil y mostramos el panel
+    document.getElementById("perfil").classList.add("oculto");
+    panel.classList.remove("oculto");
 }
