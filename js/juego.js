@@ -106,3 +106,44 @@ function mostrarPanel(nombre, edad) {
     document.getElementById("perfil").classList.add("oculto");
     panel.classList.remove("oculto");
 }
+
+//tenemos que crear ahora funciones que hara el jugador, como atacar, abrir cofres, o cuando se tengas uwe sumar puntos ...
+function atacar() {
+    // Math.random() da un decimal entre 0 y 1
+    // * 10 y Math.floor() (redondeo hacia abajo) + 1 = entero entre 1 y 10
+    const golpe = Math.floor(Math.random() * 10) + 1;
+
+    ataques++;
+    document.getElementById("resultado").textContent = "Atacas al monstruo y ganas " + golpe + " puntos";
+    sumarPuntos(golpe);
+}
+
+function abrirCofre() {
+    //entre -5 y 10 (los negativos son trampas)
+    const valor = Math.floor(Math.random() * 16) - 5;
+
+    cofres++;
+    if (valor < 0) {
+        // Math.abs() quita el signo negativo para que se lea bien
+        document.getElementById("resultado").textContent = "¡Trampa! Pierdes " + Math.abs(valor) + " puntos";
+    } else {
+        document.getElementById("resultado").textContent = "Cofre abierto: ganas " + valor + " puntos";
+    }
+    sumarPuntos(valor);
+}
+
+// suma (o resta) puntos y actualiza todo lo demas
+function sumarPuntos(cantidad) {
+    // Math.max() para que los puntos nunca sean menores que 0
+    puntos = Math.max(0, puntos + cantidad);
+    document.getElementById("puntos").textContent = puntos;
+
+    comprobarMisiones();
+    guardarPartida();
+
+    if (puntos >= PUNTOS_PARA_GANAR) {
+        document.getElementById("mensajeFinal").textContent = "¡Has ganado, " + nombreJugador + "!";
+    } else {
+        document.getElementById("mensajeFinal").textContent = "";
+    }
+}
