@@ -73,3 +73,22 @@ function calcularEdad(fechaNacimiento) {
     }
     return edad;
 }
+
+//ahora segumos con otra función que sera para mostrar el panel
+//junto con esta función, usaremos algunos metdos string (como el uppercase para el nombre)
+function mostrarPanel(nombre, edad) {
+    const panel = document.getElementById("panel");
+
+    // METODOS DE STRING: primera letra en mayuscula y el resto en minuscula
+    nombreJugador = nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
+
+    document.getElementById("tituloPanel").textContent = "Jugador: " + nombreJugador;
+    document.getElementById("datoEdad").textContent = "Edad: " + edad + " años";
+
+    // CAMBIO DE ESTILOS segun la edad: azul si es menor de 18, verde si no
+    if (edad < 18) {
+        panel.style.backgroundColor = "lightblue";
+    } else {
+        panel.style.backgroundColor = "lightgreen";
+    }
+}
