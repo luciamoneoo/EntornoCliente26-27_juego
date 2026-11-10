@@ -170,3 +170,21 @@ function completarMision(mision) {
     }
 }
 
+//ventana adicional:
+function abrirVentana() {
+    // window.open abre una ventana nueva (vacia) de 350x300
+    const ventana = window.open("", "misiones", "width=350,height=300");
+
+    // join() une el array en un texto separado por comas
+    let lista = misionesCompletadas.join(", ");
+    if (lista === "") {
+        lista = "ninguna todavía";
+    }
+
+    // escribimos dentro de la ventana nueva
+    ventana.document.body.innerHTML =
+        "<h2>Jugador: " + nombreJugador + "</h2>" +
+        "<p>Puntos: " + puntos + "</p>" +
+        "<p>Misiones completadas: " + lista + "</p>";
+}
+
