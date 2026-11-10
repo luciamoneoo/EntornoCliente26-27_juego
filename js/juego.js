@@ -60,3 +60,19 @@ function validarPerfil() {
     mensaje.textContent = "";
     mostrarPanel(nombre, edad);
 }
+
+//MÉTODOS DATE:
+//calculamos la edad, definida arriba, con el método date
+//se calcula a partir de la fecha de nacimineto
+function calcularEdad(fechaNacimiento) {
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mesDiferencia = hoy.getMonth() - fechaNacimiento.getMonth();
+
+    //puede no haber cumplido años este año todavia, por eso le quitamos 1
+    if (mesDiferencia < 0 || (mesDiferencia === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+        edad--;
+    }
+    return edad;
+}
+
