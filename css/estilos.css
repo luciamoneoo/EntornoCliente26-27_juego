@@ -1,0 +1,13 @@
+/* esconde cualquier elemento que tenga esta clase */
+.oculto {
+    display: none;
+}
+
+#panel {
+    padding: 20px;
+    border-radius: 10px;
+}
+
+button {
+    margin: 5px;
+}
