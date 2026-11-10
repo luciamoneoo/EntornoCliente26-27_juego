@@ -110,4 +110,46 @@ function mostrarPanel(nombre, edad) {
     panel.classList.remove("oculto");
 }
 
+//LANZAR EL DADO:
+function lanzar() {
+    const resultado = document.getElementById("resultado");
+
+    //vamos a crear el dado: Math.random() * 6 da 0-6, Math.floor() redondea hacia abajo, + 1 da 1-6
+    const tirada = Math.floor(Math.random() * 6) + 1;
+
+    tiradas.push(tirada);                          //guardamos la tirada en el array
+    mejorTirada = Math.max(mejorTirada, tirada);   //Math.max() se queda con la mayor tirada
+
+    if (tirada === 1) {
+        puntos = 0;
+        resultado.textContent = "Has sacado un 1: ¡pierdes todos los puntos!";
+    } else {
+        puntos = puntos + tirada;
+        resultado.textContent = "Has sacado un " + tirada;
+    }
+
+    document.getElementById("puntos").textContent = puntos;
+    document.getElementById("listaTiradas").textContent =
+        "Tiradas: " + tiradas.join(", ") + " (mejor: " + mejorTirada + ")";
+
+    //SESSIONSTORAGE: 
+    //puntos de la partida actual
+    sessionStorage.setItem("puntos", puntos);
+
+    if (puntos >= PUNTOS_PARA_GANAR) {
+        resultado.textContent = "¡Has ganado, " + nombreJugador + "! Lo has conseguido en " + tiradas.length + " tiradas";
+        guardarRecord();
+    }
+}
+
+//LOCALSTORAGE: 
+//guarda el record si es mejor (menos tiradas) que el anterior
+function guardarRecord() {
+    const record = localStorage.getItem("record");
+    if (record === null || tiradas.length < Number(record)) {
+        localStorage.setItem("record", tiradas.length);
+        document.getElementById("record").textContent = tiradas.length;
+    }
+}
+
 
