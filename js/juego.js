@@ -76,3 +76,38 @@ function calcularEdad(fechaNacimiento) {
     return edad;
 }
 
+//PANEL DEL JUGADOR:
+function mostrarPanel(nombre, edad) {
+    const panel = document.getElementById("panel");
+
+    //METODOS STRING -> primera letra en mayuscula
+    nombreJugador = nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
+
+    document.getElementById("tituloPanel").textContent = "Jugador: " + nombreJugador;
+    document.getElementById("datoEdad").textContent = "Edad: " + edad + " años";
+
+    //CAMBIO DE ESTILOS
+    //azul -> menor de 18 verde -> mayor
+    if (edad < 18) {
+        panel.style.backgroundColor = "lightblue";
+    } else {
+        panel.style.backgroundColor = "lightgreen";
+    }
+
+    //LOCALSTORAGE:
+    //aquí mostramos el record guardado solo si lo hay
+    const record = localStorage.getItem("record");
+    if (record !== null) {
+        document.getElementById("record").textContent = record;
+    }
+
+    //COOKIE:
+    //guardamos el nombre del ultimo jugador por 7 dias
+    document.cookie = "jugador=" + nombreJugador + "; max-age=604800";
+
+    //escondemos el perfil y mostramos el panel
+    document.getElementById("perfil").classList.add("oculto");
+    panel.classList.remove("oculto");
+}
+
+
