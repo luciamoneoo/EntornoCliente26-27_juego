@@ -188,3 +188,28 @@ function abrirVentana() {
         "<p>Misiones completadas: " + lista + "</p>";
 }
 
+//almacenamiento:
+function guardarPartida() {
+    // SESSIONSTORAGE: puntos de la partida actual
+    sessionStorage.setItem("puntos", puntos);
+
+    // LOCALSTORAGE: record maximo (todo se guarda como texto, por eso Number())
+    const recordActual = Number(localStorage.getItem("record"));
+    const nuevoRecord = Math.max(recordActual, puntos);
+    localStorage.setItem("record", nuevoRecord);
+    document.getElementById("record").textContent = nuevoRecord;
+}
+
+// COOKIES: busca una cookie por su nombre y devuelve su valor
+function leerCookie(clave) {
+    const cookies = document.cookie.split("; ");// cada cookie viene separada por "; "
+    for (let i = 0; i < cookies.length; i++) {
+        const partes = cookies[i].split("=");// partes[0] = nombre, partes[1] = valor
+        if (partes[0] === clave) {
+            return decodeURIComponent(partes[1]);
+        }
+    }
+    return "";// si no la encuentra
+}
+
+
