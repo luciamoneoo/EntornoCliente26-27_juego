@@ -164,5 +164,16 @@ function abrirVentana() {
         "<p>Tiradas: " + tiradas.join(", ") + "</p>";
 }
 
+//COOKIES:
+function leerCookie(clave) {
+    const cookies = document.cookie.split("; ");   //cada cookie está separada por "; "
+    for (let i = 0; i < cookies.length; i++) {
+        const partes = cookies[i].split("=");      //partes[0] = nombre, partes[1] = valor
+        if (partes[0] === clave) {
+            return partes[1];
+        }
+    }
+    return "";   //si no la encuentra
+}
 
 
