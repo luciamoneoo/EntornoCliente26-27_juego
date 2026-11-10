@@ -25,4 +25,38 @@ window.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+//PERFIL DEL JUGADOR:
+//aquí validaremos el nombre y la fecha
+function validarPerfil() {
+    const nombre = document.getElementById("nombre").value.trim();
+    const fechaTexto = document.getElementById("fecha").value;
+    const mensaje = document.getElementById("mensaje");
 
+    //nombre o fecha vacios
+    if (nombre === "" || fechaTexto === "") {
+        mensaje.textContent = "Acceso denegado";
+        return;
+    }
+
+    const fechaNacimiento = new Date(fechaTexto);
+    const hoy = new Date();
+
+    //como la fecha tiene que ser anterior a hoy
+    if (fechaNacimiento >= hoy) {
+        mensaje.textContent = "Acceso denegado";
+        return;
+    }
+
+    //calculamos la edad 
+    const edad = calcularEdad(fechaNacimiento);
+
+    //edad minima
+    if (edad < EDAD_MINIMA) {
+        mensaje.textContent = "Acceso denegado";
+        return;
+    }
+
+    //si todo va bien, mostramos el panel
+    mensaje.textContent = "";
+    mostrarPanel(nombre, edad);
+}
