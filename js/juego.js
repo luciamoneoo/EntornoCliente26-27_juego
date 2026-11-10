@@ -152,4 +152,17 @@ function guardarRecord() {
     }
 }
 
+//VENTANA ADICIONAL:
+function abrirVentana() {
+    //window.open abre una ventana nueva con las medidas que pongamos en el width 
+    const ventana = window.open("", "tiradas", "width=300,height=250");
+
+    //escribimos dentro de la ventana nueva, join() une el array con comas
+    ventana.document.body.innerHTML =
+        "<h2>Jugador: " + nombreJugador + "</h2>" +
+        "<p>Puntos: " + puntos + "</p>" +
+        "<p>Tiradas: " + tiradas.join(", ") + "</p>";
+}
+
+
 
