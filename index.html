@@ -2,16 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Juego</title>
+    <title>Juego del dado</title>
     <link rel="stylesheet" href="css/estilos.css">
     <script src="js/juego.js"></script>
 </head>
 <body>
 
-//primero hacmos lo que será el perfil del jugador
+//primero hacemos lo que será el perfil del jugador:
 
  <div id="perfil">
-        <h1>Cazar monedas</h1>
+        <h1>Dado De La Suerte</h1>
         <p id="ultimoJugador"></p>
 
         <label for="nombre">Nombre:</label>
@@ -24,22 +24,27 @@
         <p id="mensaje"></p>
     </div>
 
-//continuamos ahora con el panel del juego
+//continuamos ahora con el panel del juego:
 
     <div id="panel" class="oculto">
         <h2 id="tituloPanel"></h2>
         <p id="datoEdad"></p>
+        <p>Récord (menos tiradas): <span id="record">-</span></p>
 
-        <p>Puntos: <span id="puntos">0</span> / 50</p>
-        <p>Récord: <span id="record">0</span></p>
+
+        <p>Puntos: <span id="puntos">0</span> / 20</p>
+        <button id="btnLanzar">Lanzar dado</button>
+
+        <p id="resultado"></p>
+        <p id="listaTiradas"></p>
+
 
         <button id="btnAtacar">Atacar</button>
         <button id="btnCofre">Abrir cofre</button>
         <button id="btnMisiones">Ver misiones</button>
 
-        <p id="resultado"></p>
-        <p id="misionesHechas"></p>
-        <p id="mensajeFinal"></p>
+        <button id="btnVentana">Ver tiradas</button>
+        <button id="btnNueva">Nueva partida</button>
     </div>
 
 </body>
