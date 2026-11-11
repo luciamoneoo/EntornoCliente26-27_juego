@@ -3,42 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <title>Juego del dado</title>
+    <!-- enlazamos el css -->
     <link rel="stylesheet" href="css/estilos.css">
+    <!-- enlazamos el script -->
+    <!-- como esta en el head, se ejecuta antes del body -->
+    <!-- y en el script todo va dentro del DOMContenLoaded -->
+
+    <!-- ALTERNATIVA: poner  "defer" aquí: 
+    "<script defer src="js/juego.js"></script>"
+    y entonces ya no haría falta esperar a DOMContentLoaded -->
     <script src="js/juego.js"></script>
 </head>
 <body>
 
-//primero hacemos lo que será el perfil del jugador:
+<!-- primero hacemos lo que será el perfil del jugador: -->
+<!-- el perfil de jugador es lo primerp que se ve -->
+<!-- cuando el jugador entra, esto ya se oculta -->
 
  <div id="perfil">
         <h1>Dado De La Suerte</h1>
+
+        <!-- JS lo escribe y es un dato leído de la cookie -->
         <p id="ultimoJugador"></p>
 
+        <!-- label for="nombre" se conecta con el input id="nombre" -->
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre">
 
+        <!-- type="date": el navegador da el valor como texto "AAAA-MM-DD" -->
         <label for="fecha">Fecha de nacimiento:</label>
         <input type="date" id="fecha">
 
+        <!-- Al hacer click se ejecuta validarPerfil() -->
         <button id="btnEntrar">Entrar</button>
+
+        <!-- Aquí JS escribe "Acceso denegado" si hay error -->
         <p id="mensaje"></p>
     </div>
 
-//continuamos ahora con el panel del juego:
+<!-- continuamos ahora con el panel del juego: -->
+<!-- empieza oculto por la clase "oculto" -->
+<!-- JS le quita esa clase cuando el jugador entra correctamente -->
 
     <div id="panel" class="oculto">
+
+        <!-- JS escribe "Jugador: Nombre" -->
         <h2 id="tituloPanel"></h2>
+
+        <!-- JS escribe "Edad: X años" -->
         <p id="datoEdad"></p>
+
+        <!-- el record viene del localStorage, "-" = todavía no hay récord -->
         <p>Récord (menos tiradas): <span id="record">-</span></p>
 
-
+        <!-- los puntos se actualizan en cada tirada -->
         <p>Puntos: <span id="puntos">0</span> / 20</p>
         <button id="btnLanzar">Lanzar dado</button>
 
+        <!-- mensaje de la última tirada o de victoria -->
         <p id="resultado"></p>
+
+        <!-- lista de todas las tiradas -->
         <p id="listaTiradas"></p>
 
+        <!-- abre una ventana emergente con las tiradas -->
         <button id="btnVentana">Ver tiradas</button>
+
+        <!-- recarga la página para empezar otra partida -->
         <button id="btnNueva">Nueva partida</button>
     </div>
 
