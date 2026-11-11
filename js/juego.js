@@ -237,3 +237,118 @@ function leerCookie(clave) {
 }
 
 
+   //CAMBIOS FRECUENTES PARA EL EXAMEN
+
+ /*
+   ► CAMBIAR REGLAS DEL JUEGO
+     - Edad mínima ........ cambiar EDAD_MINIMA (arriba del todo)
+     - Puntos para ganar .. cambiar PUNTOS_PARA_GANAR  Y el "/ 20" del index.html
+     - Dado de 8 caras .... Math.floor(Math.random() * 8) + 1
+     - Dado de 0 a 5 ...... Math.floor(Math.random() * 6)
+     - Penalizar con otro número (ej. el 6 resta 6 puntos):
+           if (tirada === 6) { puntos = Math.max(0, puntos - 6); }
+     - Que el 1 NO ponga a 0 sino que reste 1:
+           puntos = Math.max(0, puntos - 1);
+     - Impedir seguir tirando al ganar: al principio de lanzar()
+           if (puntos >= PUNTOS_PARA_GANAR) { return; }
+ 
+   ► CAMBIOS CON ESTILOS (JS)
+     - Otro color según edad:   panel.style.backgroundColor = "orange";
+     - Otros estilos:           panel.style.color = "white";
+                                panel.style.fontSize = "20px";   // ¡con unidades!
+                                panel.style.border = "2px solid red";
+     - Tres tramos de edad:
+           if (edad < 18) {...} else if (edad < 65) {...} else {...}
+     - Añadir / quitar / alternar clase:
+           elemento.classList.add("clase");
+           elemento.classList.remove("clase");
+           elemento.classList.toggle("clase");
+     - Ocultar un elemento:     elemento.style.display = "none";
+       Mostrarlo otra vez:      elemento.style.display = "";
+ 
+   ► CAMBIOS CON DATE
+     - Fecha y hora actuales:   const ahora = new Date();
+     - Año / mes / día:         ahora.getFullYear()  ahora.getMonth() + 1  ahora.getDate()
+                                (el mes va de 0 a 11 -> sumar 1 para mostrarlo)
+     - Día de la semana:        ahora.getDay()   // 0 = domingo ... 6 = sábado
+     - Hora y minutos:          ahora.getHours()  ahora.getMinutes()
+     - Nombre del mes:          const meses = ["enero","febrero","marzo","abril","mayo","junio",
+                                               "julio","agosto","septiembre","octubre","noviembre","diciembre"];
+                                meses[ahora.getMonth()]
+     - Mostrar fecha bonita:    ahora.toLocaleDateString("es-ES")   // 11/11/2026
+                                ahora.toLocaleString("es-ES")       // fecha y hora
+     - Mostrar la fecha de nacimiento en el panel:
+           document.getElementById("datoEdad").textContent += " (nació el " +
+               fechaNacimiento.toLocaleDateString("es-ES") + ")";
+       (fechaNacimiento solo existe en validarPerfil: habría que pasarla a mostrarPanel)
+     - Días que faltan para el cumpleaños / días vividos:
+           const dias = Math.floor((hoy - fechaNacimiento) / (1000 * 60 * 60 * 24));
+           // restar fechas da MILISEGUNDOS; 1000*60*60*24 = ms en un día
+     - Sumar días a una fecha:  const f = new Date(); f.setDate(f.getDate() + 5);
+     - Comprobar si es fin de semana:  ahora.getDay() === 0 || ahora.getDay() === 6
+     - Comprobar si una fecha es válida:  isNaN(fecha.getTime())  -> true si es "Invalid Date"
+     - Saludo según la hora:
+           const h = new Date().getHours();
+           const saludo = h < 12 ? "Buenos días" : (h < 20 ? "Buenas tardes" : "Buenas noches");
+ 
+   ► CAMBIOS CON STRING
+     - Todo en mayúsculas:      nombre.toUpperCase()
+     - Longitud del nombre:     nombre.length
+     - Primera letra:           nombre.charAt(0)    o   nombre[0]
+     - ¿Contiene algo?:         nombre.includes("an")      -> true/false
+     - Posición de algo:        nombre.indexOf("a")        -> -1 si no está
+     - Cambiar texto:           nombre.replace("a", "o")   (solo la primera)
+                                nombre.replaceAll("a", "o")
+     - Separar en palabras:     nombre.split(" ")          -> array
+     - Iniciales de un nombre con apellido:
+           const palabras = nombre.split(" ");
+           palabras.map(p => p.charAt(0).toUpperCase()).join("")
+ 
+   ► CAMBIOS CON ARRAYS (tiradas)
+     - Última tirada:           tiradas[tiradas.length - 1]     o   tiradas.at(-1)
+     - Quitar la última:        tiradas.pop()
+     - Ordenar numéricamente:   tiradas.slice().sort((a, b) => a - b)
+     - Suma de todas:           tiradas.reduce((acum, t) => acum + t, 0)
+     - Media:                   suma / tiradas.length   (usar .toFixed(2) para 2 decimales)
+     - Cuántos seises:          tiradas.filter(t => t === 6).length
+     - ¿Hay algún 1?:           tiradas.includes(1)
+     - Tirada mínima:           Math.min(...tiradas)
+ 
+   ► CAMBIOS CON MATH
+     - Máximo / mínimo:         Math.max(a, b)   Math.min(a, b)
+     - Redondeos:               Math.floor (abajo)  Math.ceil (arriba)  Math.round (cercano)
+     - Valor absoluto:          Math.abs(-5)
+     - Potencia / raíz:         Math.pow(2, 3)   Math.sqrt(16)
+ 
+   ► CAMBIOS CON STORAGE Y COOKIES
+     - Guardar / leer / borrar localStorage:
+           localStorage.setItem("clave", valor);
+           localStorage.getItem("clave");         // null si no existe; devuelve STRING
+           localStorage.removeItem("clave");
+     - Borrar el récord (botón nuevo):  localStorage.removeItem("record");
+     - Leer los puntos de sessionStorage:  Number(sessionStorage.getItem("puntos"))
+     - Cookie con otra duración (en segundos):
+           1 hora  = 3600      1 día = 86400      7 días = 604800
+           document.cookie = "jugador=" + nombreJugador + "; max-age=3600";
+     - Cookie visible en toda la web:  añadir  "; path=/"
+     - Borrar una cookie:  document.cookie = "jugador=; max-age=0";
+     - Cookie con expires (fecha):
+           const caduca = new Date();
+           caduca.setDate(caduca.getDate() + 7);              // dentro de 7 días
+           document.cookie = "jugador=" + nombreJugador + "; expires=" + caduca.toUTCString();
+ 
+   ► CAMBIOS CON LA VENTANA
+     - Otro tamaño:   window.open("", "tiradas", "width=500,height=400,left=100,top=100");
+     - Cerrarla:      ventana.close();
+     - Comprobar si el navegador la bloqueó:   if (!ventana) { alert("Bloqueada"); return; }
+     - Escribir en ella con textContent en vez de innerHTML:
+           ventana.document.body.textContent = "Hola";
+ 
+   ► ELEMENTOS DEL DOM
+     - Por id:                  document.getElementById("id")
+     - Primero por selector:    document.querySelector(".clase")  /  ("#id")  /  ("p")
+     - Todos por selector:      document.querySelectorAll("button")
+     - Por etiqueta:            document.getElementsByTagName("p")[0]     // ¡colección, usar [0]!
+     - Solo texto:              elemento.textContent = "..."
+     - Con etiquetas HTML:      elemento.innerHTML = "<b>...</b>"
+  */
