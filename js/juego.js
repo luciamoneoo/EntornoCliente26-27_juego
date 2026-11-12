@@ -136,7 +136,6 @@ function mostrarPanel(nombre, edad) {
     //max-age en SEGUNDOS: 7 d * 24 h * 60 min * 60 s = 604800
     //(sin "path=/" la cookie solo es visible desde la carpeta de esta página)
     document.cookie = "jugador=" + nombreJugador + "; max-age=604800";
-
     //escondemos el perfil y mostramos el panel
     //classList.add("oculto") -> pone la clase (display:none en el CSS)
     //classList.remove("oculto") -> la quita, y el panel se ve
@@ -170,8 +169,7 @@ function lanzar() {
     }
 
     document.getElementById("puntos").textContent = puntos;
-    document.getElementById("listaTiradas").textContent =
-        "Tiradas: " + tiradas.join(", ") + " (mejor: " + mejorTirada + ")";
+    document.getElementById("listaTiradas").textContent = "Tiradas: " + tiradas.join(", ") + " (mejor: " + mejorTirada + ")";
         // join(", ") convierte el array en un texto separado por comas: [3,5,2] -> "3, 5, 2"
 
     //SESSIONSTORAGE: 
